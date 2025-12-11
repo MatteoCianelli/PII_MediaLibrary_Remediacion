@@ -11,7 +11,7 @@ namespace Ucu.Poo.Library
             if (year < 868 || year > 2025)
             {
                 throw new ArgumentException(
-                    "El año debe estar entre 1900 y 2025.", nameof(year));
+                    "El año debe estar entre 868 y 2025.", nameof(year));
             }
             ArgumentException.ThrowIfNullOrEmpty(isbn);
             
