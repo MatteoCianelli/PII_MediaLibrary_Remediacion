@@ -76,21 +76,11 @@ namespace Ucu.Poo.Library
             
             // Regla para préstamo: un medio no puede estar prestado a más de
             // un usuario a la vez.
-            // if (this.IsLoaned(media))
-            // {
-            //     throw new InvalidOperationException(
-            //         $"El libro {media.Title} ya está prestado a otro usuario.");
-            // }
             ILoanRule isLoanedRule = new IsLoanedRule(this, media);
             loanRules.Add(isLoanedRule);
             
             // Regla para préstamo: un usuario con préstamos vencidos no puede
             // pedir nuevos préstamos.
-            // if (this.UserHasDueLoans(user))
-            // {
-            //     throw new InvalidOperationException(
-            //         $"El usuario {user.FullName} tiene préstamos vencidos.");
-            // }
             ILoanRule userHasDueLoansRule = new UserHasDueLoansRule(this, user);
             loanRules.Add(userHasDueLoansRule);
             
