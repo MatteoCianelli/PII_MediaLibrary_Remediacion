@@ -33,7 +33,7 @@ namespace Ucu.Poo.Library
 
         public string Describe()
         {
-            return $"Book: {this.Title} ({this.Year}), by: {this.Narrator}; ISBN {this.Isbn}";
+            return $"AudioBook: {this.Title} ({this.Year}), by: {this.Narrator}; ISBN {this.Isbn}";
         }
     }
 }
