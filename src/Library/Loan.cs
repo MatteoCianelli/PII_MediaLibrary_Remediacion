@@ -20,5 +20,10 @@ namespace Ucu.Poo.Library
             DateTime dueDate = this.LoanDate.AddDays(this.Media.LoanDays());
             return DateTime.Now > dueDate;
         }
+
+        public int MediaYear()
+        {
+            return Media.Year;
+        }
     }
 }

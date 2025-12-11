@@ -67,29 +67,40 @@ namespace Ucu.Poo.Library
         {
             ArgumentNullException.ThrowIfNull(user);
             ArgumentNullException.ThrowIfNull(media);
+            List<ILoanRule> loanRules = new List<ILoanRule>();
             
             // Regla para préstamo: no se puede prestar más de dos medios a un
             // mismo usuario a la vez.
-            if (this.GetUserLoansCount(user) >= 2)
-            {
-                throw new InvalidOperationException(
-                    $"El usuario {user.FullName} ya tiene dos préstamo activo.");
-            }
+            ILoanRule loanCountRule = new LoanCountRule(this, user);
+            loanRules.Add(loanCountRule);
             
             // Regla para préstamo: un medio no puede estar prestado a más de
             // un usuario a la vez.
-            if (this.IsLoaned(media))
-            {
-                throw new InvalidOperationException(
-                    $"El libro {media.Title} ya está prestado a otro usuario.");
-            }
+            // if (this.IsLoaned(media))
+            // {
+            //     throw new InvalidOperationException(
+            //         $"El libro {media.Title} ya está prestado a otro usuario.");
+            // }
+            ILoanRule isLoanedRule = new IsLoanedRule(this, media);
+            loanRules.Add(isLoanedRule);
             
             // Regla para préstamo: un usuario con préstamos vencidos no puede
             // pedir nuevos préstamos.
-            if (this.UserHasDueLoans(user))
+            // if (this.UserHasDueLoans(user))
+            // {
+            //     throw new InvalidOperationException(
+            //         $"El usuario {user.FullName} tiene préstamos vencidos.");
+            // }
+            ILoanRule userHasDueLoansRule = new UserHasDueLoansRule(this, user);
+            loanRules.Add(userHasDueLoansRule);
+            
+            // Regla para préstamo: un usuario no puede tener dos medios del mimso año.
+            ILoanRule sameYearLoanRule = new SameYearLoanRule(this, user, media);
+            loanRules.Add(sameYearLoanRule);
+
+            foreach (var loanRule in loanRules)
             {
-                throw new InvalidOperationException(
-                    $"El usuario {user.FullName} tiene préstamos vencidos.");
+                loanRule.ApplyRule();
             }
             
             if (loanDate == default(DateTime))
