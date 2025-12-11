@@ -2,7 +2,7 @@ using System;
 
 namespace Ucu.Poo.Library
 {
-    public class AudioBook
+    public class AudioBook : IMedia
     {
         public AudioBook(string title, string narrator, int year, string isbn)
         {
@@ -21,9 +21,9 @@ namespace Ucu.Poo.Library
             this.Isbn = isbn;
         }
         
-        public string Title { get; private set; }
+        public string Title { get; set; }
         public string Narrator { get; private set; }
-        public int Year { get; private set; }
+        public int Year { get; set; }
         public string Isbn { get; private set; }
 
         public int LoanDays()
@@ -34,6 +34,11 @@ namespace Ucu.Poo.Library
         public string Describe()
         {
             return $"AudioBook: {this.Title} ({this.Year}), by: {this.Narrator}; ISBN {this.Isbn}";
+        }
+
+        public bool CheckId(string id)
+        {
+            return Isbn == id;
         }
     }
 }

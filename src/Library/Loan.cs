@@ -5,19 +5,19 @@ namespace Ucu.Poo.Library
     public class Loan
     {
         public User User { get; private set; }
-        public Book Book { get; private set; }
+        public IMedia Media { get; private set; }
         public DateTime LoanDate { get; private set; }
         
-        public Loan(User user, Book book, DateTime loanDate)
+        public Loan(User user, IMedia media, DateTime loanDate)
         {
             this.User = user;
-            this.Book = book;
+            this.Media = media;
             this.LoanDate = loanDate;
         }
 
         public bool IsDue()
         {
-            DateTime dueDate = this.LoanDate.AddDays(this.Book.LoanDays());
+            DateTime dueDate = this.LoanDate.AddDays(this.Media.LoanDays());
             return DateTime.Now > dueDate;
         }
     }

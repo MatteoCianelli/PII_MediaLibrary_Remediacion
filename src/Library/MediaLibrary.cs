@@ -63,10 +63,10 @@ namespace Ucu.Poo.Library
             this.moviesRepository.Add(movie);
         }
 
-        public Loan LoanToUser(User user, Book book, DateTime loanDate = default(DateTime))
+        public Loan LoanToUser(User user, IMedia media, DateTime loanDate = default(DateTime))
         {
             ArgumentNullException.ThrowIfNull(user);
-            ArgumentNullException.ThrowIfNull(book);
+            ArgumentNullException.ThrowIfNull(media);
             
             // Regla para préstamo: no se puede prestar más de dos medios a un
             // mismo usuario a la vez.
@@ -78,10 +78,10 @@ namespace Ucu.Poo.Library
             
             // Regla para préstamo: un medio no puede estar prestado a más de
             // un usuario a la vez.
-            if (this.IsLoaned(book))
+            if (this.IsLoaned(media))
             {
                 throw new InvalidOperationException(
-                    $"El libro {book.Title} ya está prestado a otro usuario.");
+                    $"El libro {media.Title} ya está prestado a otro usuario.");
             }
             
             // Regla para préstamo: un usuario con préstamos vencidos no puede
@@ -97,7 +97,7 @@ namespace Ucu.Poo.Library
                 loanDate = DateTime.Now;
             }
 
-            Loan loan = new Loan(user, book, loanDate);
+            Loan loan = new Loan(user, media, loanDate);
             this.loans.Add(loan);
             return loan;
         }
@@ -115,11 +115,11 @@ namespace Ucu.Poo.Library
             return false;
         }
 
-        public bool IsLoaned(Book book)
+        public bool IsLoaned(IMedia media)
         {
             foreach (Loan loan in this.loans)
             {
-                if (loan.Book == book)
+                if (loan.Media == media)
                 {
                     return true;
                 }

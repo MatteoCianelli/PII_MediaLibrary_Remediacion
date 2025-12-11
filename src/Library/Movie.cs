@@ -22,9 +22,9 @@ namespace Ucu.Poo.Library
         }
 
         public string Id { get; private set; }
-        public string Title { get; private set; }
+        public string Title { get; set; }
         public string Director { get; private set; }
-        public int Year { get; private set; }
+        public int Year { get; set; }
         public string ImdbId { get; private set; }
 
         public int LoanDays()
@@ -35,6 +35,11 @@ namespace Ucu.Poo.Library
         public string Describe()
         {
             return $"Movie: {this.Title} ({this.Year}), directed by: {this.Director}; IMDB Id {this.ImdbId}";
+        }
+
+        public bool CheckId(string id)
+        {
+            return ImdbId == id;
         }
     }
 }

@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Ucu.Poo.Library
 {
-    public class MoviesRepository : IRepository
+    public class MoviesRepository
     {
-        private List<IMedia> movies = new List<IMedia>();
+        private List<Movie> movies = new List<Movie>();
 
-        public IReadOnlyCollection<IMedia> Items
+        public IReadOnlyCollection<Movie> Items
         {
             get
             {
@@ -14,11 +14,11 @@ namespace Ucu.Poo.Library
             }
         }
         
-        public IMedia FindById(string id)
+        public Movie FindById(string id)
         {
             foreach (Movie movie in Items)
             {
-                if (movie.ImdbId == id)
+                if (movie.CheckId(id))
                 {
                     return movie;
                 }
@@ -26,7 +26,7 @@ namespace Ucu.Poo.Library
             return null;
         }
         
-        public IMedia FindByTitle(string title)
+        public Movie FindByTitle(string title)
         {
             foreach (Movie movie in Items)
             {
@@ -39,9 +39,9 @@ namespace Ucu.Poo.Library
             return null;
         }
 
-        public void Add(IMedia media)
+        public void Add(Movie movie)
         {
-            this.movies.Add(media);
+            this.movies.Add(movie);
         }
     }
 }

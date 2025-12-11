@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Ucu.Poo.Library
 {
-    public class BooksRepository : IRepository
+    public class BooksRepository
     {
-        private List<IMedia> books = new List<IMedia>();
+        private List<Book> books = new List<Book>();
 
-        public IReadOnlyCollection<IMedia> Items
+        public IReadOnlyCollection<Book> Items
         {
             get
             {
@@ -14,11 +14,11 @@ namespace Ucu.Poo.Library
             }
         }
         
-        public IMedia FindById(string id)
+        public Book FindById(string id)
         {
             foreach (Book book in books)
             {
-                if (book.Isbn == id)
+                if (book.CheckId(id))
                 {
                     return book;
                 }
@@ -27,7 +27,7 @@ namespace Ucu.Poo.Library
             return null;
         }
         
-        public IMedia FindByTitle(string title)
+        public Book FindByTitle(string title)
         {
             foreach (Book book in books)
             {
@@ -40,9 +40,9 @@ namespace Ucu.Poo.Library
             return null;
         }
 
-        public void Add(IMedia media)
+        public void Add(Book book)
         {
-            this.books.Add(media);
+            this.books.Add(book);
         }
     }
 }

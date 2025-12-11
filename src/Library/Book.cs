@@ -21,9 +21,9 @@ namespace Ucu.Poo.Library
             this.Isbn = isbn;
         }
         
-        public string Title { get; private set; }
+        public string Title { get; set; }
         public string Author { get; private set; }
-        public int Year { get; private set; }
+        public int Year { get; set; }
         public string Isbn { get; private set; }
 
         public int LoanDays()
@@ -34,6 +34,11 @@ namespace Ucu.Poo.Library
         public string Describe()
         {
             return $"Book: {this.Title} ({this.Year}), by: {this.Author}; ISBN {this.Isbn}";
+        }
+
+        public bool CheckId(string id)
+        {
+            return Isbn == id;
         }
     }
 }
