@@ -2,7 +2,7 @@ using System;
 
 namespace Ucu.Poo.Library
 {
-    public sealed class Movie
+    public sealed class Movie : IMedia
     {
         public Movie(string title, string director, int year, string imdbId)
         {

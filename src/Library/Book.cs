@@ -2,7 +2,7 @@ using System;
 
 namespace Ucu.Poo.Library
 {
-    public class Book
+    public class Book : IMedia
     {
         public Book(string title, string author, int year, string isbn)
         {
